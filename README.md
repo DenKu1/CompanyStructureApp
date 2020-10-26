@@ -14,6 +14,8 @@ Main functionality:
   + by direct subordination 
   + by the height of the position in the company
 
+UML diagrams:
++ Class diagram (https://drive.google.com/file/d/1p-UWNxx-E8BkG1BHSfCFzmcMAbT-T54a/view?usp=sharing)
 
 Created for study purposes.
 
