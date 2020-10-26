@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CompanyStructureApp.Domain.Core.Concrete.Employee" BaseTypeListCollapsed="true">
+    <Position X="13" Y="2.75" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="CompanyStructureApp.Domain.Core.Concrete.EmployeeComponentFactory" BaseTypeListCollapsed="true">
+    <Position X="11.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="CompanyStructureApp.Domain.Core.Concrete.EmployeeComposite" BaseTypeListCollapsed="true">
+    <Position X="7.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="CompanyStructureApp.Domain.Core.Concrete.EmployeeLeaf">
+    <Position X="9.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="CompanyStructureApp.Domain.Core.Concrete.Visitors.EmployeeMaxSalaryVisitor">
+    <Position X="14.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CompanyStructureApp.Domain.Core.Concrete.Visitors.EmployeeWithSuperiorVisitor">
+    <Position X="16.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CompanyStructureApp.Domain.Core.Abstract.EmployeeComponent" Collapsed="true">
+    <Position X="8.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CompanyStructureApp.DTOs.EmployeeDTO">
+    <Position X="4.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="CompanyStructureApp.Infrastructure.DataAccess.CompanyStructureContainer">
+    <Position X="18.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="CompanyStructureApp.Infrastructure.DataAccess.CompanyStructureRepository">
+    <Position X="16" Y="5.75" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CompanyStructureApp.Infrastructure.Services.CompanyStructureService">
+    <Position X="16" Y="8.25" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CompanyStructureApp.Infrastructure.Services.EmployeeService">
+    <Position X="18.75" Y="8.25" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CompanyStructureApp.Settings.Position">
+    <Position X="4.25" Y="10.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="CompanyStructureApp.CLI.ConsoleApp.ConsoleApplication">
+    <Position X="11.75" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAQAIQAABAAAAAAAAAAACAAAABAACAAQAAAEEY=</HashCode>
+      <FileName>ConsoleApp\ConsoleApplicationChecks.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="CompanyStructureApp.Domain.Core.Interfaces.IEmployee">
+    <Position X="13" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="CompanyStructureApp.Domain.Core.Interfaces.IEmployeeComponentFactory">
+    <Position X="11.25" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="CompanyStructureApp.Domain.Core.Interfaces.IEmployeeComposite">
+    <Position X="7" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="CompanyStructureApp.Domain.Core.Interfaces.IEmployeeVisitable">
+    <Position X="8.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="CompanyStructureApp.Domain.Core.Interfaces.Visitors.IEmployeeMaxSalaryVisitor" Collapsed="true">
+    <Position X="14.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="CompanyStructureApp.Domain.Core.Interfaces.Visitors.IEmployeeVisitor" Collapsed="true">
+    <Position X="15.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="CompanyStructureApp.Domain.Core.Interfaces.Visitors.IEmployeeWithSuperiorVisitor" Collapsed="true">
+    <Position X="16.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="CompanyStructureApp.Domain.Interfaces.Repositories.ICompanyStructureRepository">
+    <Position X="12" Y="5.75" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="CompanyStructureApp.Domain.Interfaces.Services.ICompanyStructureService">
+    <Position X="10.25" Y="8.25" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="CompanyStructureApp.Domain.Interfaces.Services.IEmployeeService">
+    <Position X="13.5" Y="8.25" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
