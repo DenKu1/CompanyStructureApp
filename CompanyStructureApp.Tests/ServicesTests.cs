@@ -25,14 +25,77 @@ namespace CompanyStructureApp.Tests
         private Mock<ICompanyStructureRepository> mockCompanyStructureRepository;
         private IMapper mapper;
 
-        
+        #region data
+        private Employee Employee => new Employee
+        {
+            Id = Guid.Parse("4596490f-524f-4af2-bf72-16f15bd78831"),
+            Name = "Denys",
+            Surname = "Kulyk",
+            Position = Position.Director,
+            Salary = 300
+        };
+
+        private EmployeeDTO EmployeeDTO => new EmployeeDTO
+        {
+            Id = Guid.Parse("4596490f-524f-4af2-bf72-16f15bd78831"),
+            Name = "Denys",
+            Surname = "Kulyk",
+            Position = Position.Worker,
+            Salary = 300
+        };
+
+        private List<Employee> EmployeeList => new List<Employee>
+        {
+            new Employee
+            {
+                Id = Guid.Parse("f571936a-fa52-4dbb-a4fd-c80e28099de4"),
+                Name = "Denys",
+                Surname = "Kulyk",
+                Position = Position.Director,
+                Salary = 300
+            },
+            new Employee
+            {
+                Id = Guid.Parse("7114cfaf-a0f6-4256-ba9c-98151805b638"),
+                Name = "Mark",
+                Surname = "Red",
+                Position = Position.Manager,
+                Salary = 200
+            },
+            new Employee
+            {
+                Id = Guid.Parse("8ca66163-d427-42cd-8fe0-2f16d5131db4"),
+                Name = "Susan",
+                Surname = "Green",
+                Position = Position.Worker,
+                Salary = 100
+            },
+            new Employee
+            {
+                Id = Guid.Parse("14951257-4901-44e6-af04-59afb0714cb6"),
+                Name = "Petro",
+                Surname = "Manager",
+                Position = Position.Manager,
+                Salary = 100
+            },
+            new Employee
+            {
+                Id = Guid.Parse("ec6f17ca-7eb5-4587-a49d-b8c5b5a9ff3a"),
+                Name = "Natalie",
+                Surname = "Cyan",
+                Position = Position.Worker,
+                Salary = 50
+            }
+
+        };
+        #endregion
 
         private Mock<ICompanyStructureRepository> CreateMockRepository()
         {
             var mockRepository = new Mock<ICompanyStructureRepository>();
 
-            var emp = Creators.CreateEmployee();
-            var empList = Creators.CreateEmployeeList();
+            var emp = Employee;
+            var empList = EmployeeList.Cast<IEmployee>().ToList();
 
             mockRepository.Setup(r => r.AddEmployee(It.IsAny<IEmployee>(), It.IsAny<string>())).Returns((IEmployee e, string s) => e.Id.ToString());
             mockRepository.Setup(r => r.GetEmployeeById(It.IsAny<string>())).Returns(emp);            
@@ -75,7 +138,7 @@ namespace CompanyStructureApp.Tests
         public void CompanyStructureService_AddEmployee_ShouldReturnEmployeeDtoId()
         {
             // Arrange
-            EmployeeDTO employeeDTO = Creators.CreateEmployeeDTO();
+            EmployeeDTO employeeDTO = EmployeeDTO;
             string superiorEmployeeId = "some string";
             string expectedEmployeeId = employeeDTO.Id.ToString();
         
@@ -90,7 +153,7 @@ namespace CompanyStructureApp.Tests
         public void CompanyStructureService_AddEmployee_RepositoryAddUserShouldBeCalled()
         {
             // Arrange
-            EmployeeDTO employeeDTO = Creators.CreateEmployeeDTO();
+            EmployeeDTO employeeDTO = EmployeeDTO;
             string superiorEmployeeId = "some string";
 
             Employee employee = mapper.Map<Employee>(employeeDTO);
@@ -120,7 +183,7 @@ namespace CompanyStructureApp.Tests
         public void CompanyStructureService_ShowCompanyStructureByDirectSubordination_ShouldReturnEmployessInRightOrder()
         {
             // Arrange
-            var employeesInRightOrder = Creators.CreateEmployeeList();
+            var employeesInRightOrder = EmployeeList;
             var employeeDTOsInRightOrder = mapper.Map<List<EmployeeDTO>>(employeesInRightOrder);
 
             // Act
@@ -146,7 +209,7 @@ namespace CompanyStructureApp.Tests
         public void CompanyStructureService_ShowCompanyStructureByPositionHeight_ShouldReturnEmployessInRightOrder()
         {
             // Arrange
-            var employeesInRightOrder = Creators.CreateEmployeeList().OrderByDescending(e => e.Position);
+            var employeesInRightOrder = EmployeeList.OrderByDescending(e => e.Position);
 
             var employeeDTOsInRightOrder = mapper.Map<List<EmployeeDTO>>(employeesInRightOrder);
 
@@ -162,7 +225,7 @@ namespace CompanyStructureApp.Tests
         {
             // Arrange
             var salary = 200;
-            var expectedEmployees = Creators.CreateEmployeeList();
+            var expectedEmployees = EmployeeList;
 
             // Act
             var result = employeeService.FindEmployeesWithSalaryBigger(salary);
@@ -189,7 +252,7 @@ namespace CompanyStructureApp.Tests
         public void EmployeeService_FindEmployeesWithBiggestSalary_ShouldReturnEmployees()
         {
             // Arrange
-            var expectedEmployees = Creators.CreateEmployeeList();
+            var expectedEmployees = EmployeeList;
 
             // Act
             var result = employeeService.FindEmployeesWithBiggestSalary();
@@ -216,7 +279,7 @@ namespace CompanyStructureApp.Tests
         {
             // Arrange
             var position = Position.Director;
-            var expectedEmployees = Creators.CreateEmployeeList();
+            var expectedEmployees = EmployeeList;
 
             // Act
             var result = employeeService.FindEmployeesOnPosition(position);
@@ -257,7 +320,7 @@ namespace CompanyStructureApp.Tests
         {
             // Arrange
             var superiorId = "some string";
-            var expectedEmployees = Creators.CreateEmployeeList();
+            var expectedEmployees = EmployeeList;
 
             // Act
             var result = employeeService.FindEmployeesWithSuperior(superiorId);

@@ -13,6 +13,7 @@ using System.Dynamic;
 using System.Linq;
 using FluentAssertions;
 using CompanyStructureApp.Domain.Core.Exceptions;
+using CompanyStructureApp.Settings;
 
 namespace CompanyStructureApp.Tests
 {
@@ -22,6 +23,72 @@ namespace CompanyStructureApp.Tests
 
         private Mock<IEmployeeComponentFactory> mockEmployeeComponentFactory;
         private Mock<ICompanyStructureContainer> mockCompanyStructureContainer;
+
+        #region data
+
+        private Employee Employee => new Employee
+        {
+            Id = Guid.Parse("4596490f-524f-4af2-bf72-16f15bd78831"),
+            Name = "Denys",
+            Surname = "Kulyk",
+            Position = Position.Director,
+            Salary = 300
+        };
+
+        private EmployeeComposite EmployeeComposite => new EmployeeComposite(new Employee
+        {
+            Id = Guid.Parse("4596490f-524f-4af2-bf72-16f15bd78831"),
+            Name = "Denys",
+            Surname = "Kulyk",
+            Position = Position.Director,
+            Salary = 300
+        });
+
+        private List<EmployeeComponent> EmployeeComponentList => new List<EmployeeComponent>
+        {
+            new EmployeeComposite(new Employee
+            {
+                Id = Guid.Parse("f571936a-fa52-4dbb-a4fd-c80e28099de4"),
+                Name = "Denys",
+                Surname = "Kulyk",
+                Position = Position.Director,
+                Salary = 300
+            }),
+            new EmployeeComposite(new Employee
+            {
+                Id = Guid.Parse("7114cfaf-a0f6-4256-ba9c-98151805b638"),
+                Name = "Mark",
+                Surname = "Red",
+                Position = Position.Manager,
+                Salary = 200
+            }),
+            new EmployeeLeaf(new Employee
+            {
+                Id = Guid.Parse("8ca66163-d427-42cd-8fe0-2f16d5131db4"),
+                Name = "Susan",
+                Surname = "Green",
+                Position = Position.Worker,
+                Salary = 100
+            }),
+            new EmployeeComposite(new Employee
+            {
+                Id = Guid.Parse("14951257-4901-44e6-af04-59afb0714cb6"),
+                Name = "Petro",
+                Surname = "Manager",
+                Position = Position.Manager,
+                Salary = 100
+            }),
+            new EmployeeLeaf(new Employee
+            {
+                Id = Guid.Parse("ec6f17ca-7eb5-4587-a49d-b8c5b5a9ff3a"),
+                Name = "Natalie",
+                Surname = "Cyan",
+                Position = Position.Worker,
+                Salary = 50
+            })
+        };
+        #endregion
+
 
         private Mock<IEmployeeComponentFactory> CreateMockFactory()
         {
@@ -37,10 +104,10 @@ namespace CompanyStructureApp.Tests
         {
             var mockContainer = new Mock<ICompanyStructureContainer>();
 
-            mockContainer.SetupGet(f => f.RootElement).Returns(Creators.CreateEmployeeComponent());
+            mockContainer.SetupGet(f => f.RootElement).Returns(EmployeeComposite);
             mockContainer.SetupSet(f => f.RootElement = It.IsAny<EmployeeComponent>());
 
-            mockContainer.Setup(f => f.GetEnumerator()).Returns(Creators.CreateEmployeeComponentList().GetEnumerator());
+            mockContainer.Setup(f => f.GetEnumerator()).Returns(EmployeeComponentList.GetEnumerator());
 
             return mockContainer;
         }
@@ -73,10 +140,10 @@ namespace CompanyStructureApp.Tests
         public void CompanyStructureRepository_AddEmployee_NullSuperiorIdShouldAddElementAsRoot()
         {
             // Arrange
-            IEmployee employee = Creators.CreateEmployee();
+            IEmployee employee = Employee;
             string superiorEmployeeId = null;
 
-            EmployeeComponent expectedEmployeeComponent = Creators.CreateEmployeeComponent();
+            EmployeeComponent expectedEmployeeComponent = EmployeeComposite;
 
             // Act
             companyStructureRepository.AddEmployee(employee, superiorEmployeeId);
@@ -90,7 +157,7 @@ namespace CompanyStructureApp.Tests
         public void CompanyStructureRepository_AddEmployee_NullSuperiorIdShouldReturnEmployeeId()
         {
             // Arrange
-            IEmployee employee = Creators.CreateEmployee();
+            IEmployee employee = Employee;
             string superiorEmployeeId = null;
 
             string expectedId = employee.Id.ToString();
@@ -106,7 +173,7 @@ namespace CompanyStructureApp.Tests
         public void CompanyStructureRepository_AddEmployee_WrongIdShouldRaiseException()
         {
             // Arrange
-            IEmployee employee = Creators.CreateEmployee();
+            IEmployee employee = Employee;
             string superiorEmployeeId = "wrong id";
 
             // Act
@@ -120,7 +187,7 @@ namespace CompanyStructureApp.Tests
         public void CompanyStructureRepository_AddEmployee_SuperiorLeafRaiseException()
         {
             // Arrange
-            IEmployee employee = Creators.CreateEmployee();
+            IEmployee employee = Employee;
             string wrongSuperiorEmployeeId = "ec6f17ca-7eb5-4587-a49d-b8c5b5a9ff3a";
 
             // Act
@@ -135,7 +202,8 @@ namespace CompanyStructureApp.Tests
         public void CompanyStructureRepository_AddEmployee_ShouldReturnEmployeeId()
         {
             // Arrange
-            IEmployee employee = Creators.CreateEmployee();
+            IEmployee employee = Employee;
+            employee.Position = Position.Worker;
             string superiorEmployeeId = "f571936a-fa52-4dbb-a4fd-c80e28099de4";
 
             string expectedId = employee.Id.ToString();
@@ -171,7 +239,7 @@ namespace CompanyStructureApp.Tests
 
             var id = "wrong id";
 
-            var list = Creators.CreateEmployeeComponentList();
+            var list = EmployeeComponentList;
             var expected = list.Where(e => e.Employee.Id.ToString() == id).FirstOrDefault();
             // Act
             var result = exposedRepository.GetEmployeeComponentById(id);
@@ -188,7 +256,7 @@ namespace CompanyStructureApp.Tests
             // Arrange
             var exposedRepository = Exposed.From(companyStructureRepository);
 
-            var list = Creators.CreateEmployeeComponentList();
+            var list = EmployeeComponentList;
             var expected = list.Where(e => e.Employee.Id.ToString() == id).FirstOrDefault();
             // Act
             var result = exposedRepository.GetEmployeeComponentById(id);
