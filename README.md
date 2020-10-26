@@ -14,23 +14,6 @@ Main functionality:
   + by direct subordination 
   + by the height of the position in the company
 
-Example of output by direct subordination:
-======> Director
-====> Supply Manager
-==> Working X
-==> Working Y
-====> Sales Manager
-==> Working A
-==> Working B
-
-Example of output by position height in the company:
-======> Director
-====> Supply Manager
-====> Sales Manager
-==> Working X
-==> Working Y
-==> Working A
-==> Working B
 
 Created for study purposes.
 
