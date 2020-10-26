@@ -7,10 +7,10 @@ to the supply manager the workers of type X and Y are subordinated, and to the s
 Used design patterns: Strategy, Visitor, Composite, Factory Method
 
 Main functionality:
-• Find all employees whose salary is higher than the specified and the highest salary among all employees
-• Find all employees who report directly to the task
-• Find all employees in a given position
-• Display the structure of the company in different formats:
++ Find all employees whose salary is higher than the specified and the highest salary among all employees
++ Find all employees who report directly to the task
++ Find all employees in a given position
++ Display the structure of the company in different formats:
   + by direct subordination 
   + by the height of the position in the company
 
