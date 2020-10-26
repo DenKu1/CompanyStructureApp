@@ -1,8 +1,8 @@
 ﻿using CompanyStructureApp.Domain.Core.Abstract;
 using CompanyStructureApp.Domain.Core.Interfaces;
+using CompanyStructureApp.Domain.Core.Interfaces.Visitors;
 using System.Collections.Generic;
 using System;
-using CompanyStructureApp.Domain.Core.Interfaces.Visitors;
 
 namespace CompanyStructureApp.Domain.Core.Concrete.Visitors
 {

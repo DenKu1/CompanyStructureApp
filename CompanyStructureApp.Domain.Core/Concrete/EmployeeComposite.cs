@@ -2,6 +2,7 @@
 using CompanyStructureApp.Domain.Core.Exceptions;
 using CompanyStructureApp.Domain.Core.Interfaces;
 using CompanyStructureApp.Domain.Core.Interfaces.Visitors;
+using System;
 using System.Collections.Generic;
 
 namespace CompanyStructureApp.Domain.Core.Concrete
@@ -17,9 +18,9 @@ namespace CompanyStructureApp.Domain.Core.Concrete
 
         public override void Accept(IEmployeeVisitor visitor)
         {
-            if (visitor == null)
+            if (visitor is null)
             {
-                throw null;
+                throw new ArgumentNullException(nameof(visitor));
             }
 
             EmployeeComponents.ForEach(employeeComponent => employeeComponent.Accept(visitor));
@@ -48,7 +49,6 @@ namespace CompanyStructureApp.Domain.Core.Concrete
                 throw null;
             }
 
-            //TODO: Move checks to class Employee
             if (employeeComponent.Employee.Position >= Employee.Position)
             {
                 throw new EmployeeException($"Subordinate {employeeComponent.DisplayInfo()} has bigger postion than {this.DisplayInfo()}");
