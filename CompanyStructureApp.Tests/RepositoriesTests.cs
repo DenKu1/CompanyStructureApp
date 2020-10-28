@@ -1,19 +1,18 @@
 ﻿using CompanyStructureApp.Domain.Core.Abstract;
 using CompanyStructureApp.Domain.Core.Concrete;
 using CompanyStructureApp.Domain.Core.Interfaces;
+using CompanyStructureApp.Domain.Core.Exceptions;
+using CompanyStructureApp.Domain.Core.Concrete.Visitors;
 using CompanyStructureApp.Domain.Interfaces.Repositories;
 using CompanyStructureApp.Infrastructure.DataAccess;
+using CompanyStructureApp.Settings;
 using ExposedObject;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
-using System.Dynamic;
-using System.Linq;
 using FluentAssertions;
-using CompanyStructureApp.Domain.Core.Exceptions;
-using CompanyStructureApp.Settings;
+using System;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace CompanyStructureApp.Tests
 {
@@ -88,7 +87,6 @@ namespace CompanyStructureApp.Tests
             })
         };
         #endregion
-
 
         private Mock<IEmployeeComponentFactory> CreateMockFactory()
         {
@@ -279,6 +277,174 @@ namespace CompanyStructureApp.Tests
             // Assert
             ArgumentNullException exception = Assert.Throws<ArgumentNullException>(act);
             Assert.Equal(nameof(id), exception.ParamName);
+        }
+
+        [Fact]
+        public void CompanyStructureRepository_GetEmployeeById_NullRootElementShouldReturnNull()
+        {
+            // Arrange
+            mockCompanyStructureContainer.SetupGet(f => f.RootElement).Returns((EmployeeComponent)null);
+            string id = "some text";            
+
+            // Act
+            var result = companyStructureRepository.GetEmployeeById(id);
+
+            // Assert            
+            Assert.Null(result);
+        }
+
+        [Fact]
+        public void CompanyStructureRepository_GetEmployeeById_ValidIdShouldReturnEmployee()
+        {
+            // Arrange
+            string id = "14951257-4901-44e6-af04-59afb0714cb6";
+            var expected = EmployeeComponentList.First(e => e.Employee.Id.ToString() == id).Employee;
+
+            // Act
+            var result = companyStructureRepository.GetEmployeeById(id);
+
+            // Assert            
+            result.Should().BeEquivalentTo(expected);
+        }
+
+        [Fact]
+        public void CompanyStructureRepository_GetEmployees_NullFunctionShouldRaiseException()
+        {
+            // Arrange
+            Func<EmployeeComponent, bool> function = null;
+
+            // Act
+            Action act = () => companyStructureRepository.GetEmployees(function);
+
+            // Assert
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(act);
+            Assert.Equal(nameof(function), exception.ParamName);
+        }
+
+        [Fact]
+        public void CompanyStructureRepository_GetEmployees_NullRootElementShouldReturnNull()
+        {
+            // Arrange
+            mockCompanyStructureContainer.SetupGet(f => f.RootElement).Returns((EmployeeComponent)null);
+            Func<EmployeeComponent, bool> function = x => x.Employee.Salary > 100;
+
+            // Act
+            var result = companyStructureRepository.GetEmployees(function);
+
+            // Assert            
+            Assert.Null(result);
+        }
+
+        [Fact]
+        public void CompanyStructureRepository_GetEmployees_ValidFunctionShouldReturnRightResult()
+        {
+            // Arrange           
+            Func<EmployeeComponent, bool> function = x => x.Employee.Salary > 100;
+            var expected = EmployeeComponentList.Where(function).Select(c => c.Employee);
+
+            // Act
+            var result = companyStructureRepository.GetEmployees(function);
+
+            // Assert            
+            result.Should().BeEquivalentTo(expected);
+        }
+
+        [Fact]
+        public void CompanyStructureRepository_GetAllEmployees_NullRootElementShouldReturnNull()
+        {
+            // Arrange
+            mockCompanyStructureContainer.SetupGet(f => f.RootElement).Returns((EmployeeComponent)null);
+
+            // Act
+            var result = companyStructureRepository.GetAllEmployees();
+
+            // Assert            
+            Assert.Null(result);
+        }
+
+        [Fact]
+        public void CompanyStructureRepository_GetAllEmployees_ShouldReturnAllEmploees()
+        {
+            // Arrange                       
+            var expected = EmployeeComponentList.Select(c => c.Employee);
+
+            // Act
+            var result = companyStructureRepository.GetAllEmployees();
+
+            // Assert            
+            result.Should().BeEquivalentTo(expected);
+        }
+
+        [Fact]
+        public void CompanyStructureRepository_FindEmployeesWithBiggestSalary_NullRootElementShouldReturnNull()
+        {
+            // Arrange
+            mockCompanyStructureContainer.SetupGet(f => f.RootElement).Returns((EmployeeComponent)null);
+
+            // Act
+            var result = companyStructureRepository.FindEmployeesWithBiggestSalary();
+
+            // Assert            
+            Assert.Null(result);
+        }
+
+        [Fact]
+        public void CompanyStructureRepository_GetAllEmployees_RootElementShouldAcceptVisitor()
+        {
+            // Arrange  
+            var mockRootElement = new Mock<EmployeeComposite>(Employee);
+
+            mockCompanyStructureContainer.SetupGet(f => f.RootElement).Returns(mockRootElement.Object);
+
+            // Act
+            var result = companyStructureRepository.FindEmployeesWithBiggestSalary();
+
+            // Assert            
+            mockRootElement.Verify(mock => mock.Accept(It.IsAny<EmployeeMaxSalaryVisitor>()), Times.Once);
+        }
+
+        [Fact]
+        public void CompanyStructureRepository_FindEmployeesWithSuperior_NullRootElementShouldReturnNull()
+        {
+            // Arrange
+            mockCompanyStructureContainer.SetupGet(f => f.RootElement).Returns((EmployeeComponent)null);
+            string superiorId = "some string";
+
+            // Act
+            var result = companyStructureRepository.FindEmployeesWithSuperior(superiorId);
+
+            // Assert            
+            Assert.Null(result);
+        }
+
+        [Fact]
+        public void CompanyStructureRepository_FindEmployeesWithSuperior_NullSuperiorIdShouldRaiseException()
+        {
+            // Arrange
+            string superiorId = null;
+
+            // Act
+            Action act = () => companyStructureRepository.FindEmployeesWithSuperior(superiorId);
+
+            // Assert
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(act);
+            Assert.Equal(nameof(superiorId), exception.ParamName);
+        }
+
+        [Fact]
+        public void CompanyStructureRepository_FindEmployeesWithSuperior_RootElementShouldAcceptVisitor()
+        {
+            // Arrange  
+            var mockRootElement = new Mock<EmployeeComposite>(Employee);                
+            mockCompanyStructureContainer.SetupGet(f => f.RootElement).Returns(mockRootElement.Object);
+
+            string superiorId = "some string";
+
+            // Act
+            var result = companyStructureRepository.FindEmployeesWithSuperior(superiorId);
+
+            // Assert            
+            mockRootElement.Verify(mock => mock.Accept(It.IsAny<EmployeeWithSuperiorVisitor>()), Times.Once);
         }
     }
 }
