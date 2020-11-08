@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyStructureApp.CLI", "CompanyStructureApp.CLI\CompanyStructureApp.CLI.csproj", "{813357FF-936B-4932-AC92-453C5776C11E}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyStructureApp.Domain.Core", "CompanyStructureApp.Domain.Core\CompanyStructureApp.Domain.Core.csproj", "{50A7643C-3737-480A-B3F9-7DC900695D84}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyStructureApp.Domain.Interfaces", "CompanyStructureApp.Domain.Interfaces\CompanyStructureApp.Domain.Interfaces.csproj", "{4857F1FE-A6CE-4F22-B90D-B7665ABF76C5}"
@@ -15,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyStructureApp.Setting
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyStructureApp.DTOs", "CompanyStructureApp.DTOs\CompanyStructureApp.DTOs.csproj", "{71725AED-A278-4A53-90D9-4AC3909F0DF3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompanyStructureApp.Tests", "CompanyStructureApp.Tests\CompanyStructureApp.Tests.csproj", "{6FBFE3FF-2D4E-42C0-ADDB-38793B01BE66}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyStructureApp.Tests", "CompanyStructureApp.Tests\CompanyStructureApp.Tests.csproj", "{6FBFE3FF-2D4E-42C0-ADDB-38793B01BE66}"
 	ProjectSection(ProjectDependencies) = postProject
 		{50A7643C-3737-480A-B3F9-7DC900695D84} = {50A7643C-3737-480A-B3F9-7DC900695D84}
 		{C7D94AC1-E038-437C-B01B-788EBD1CD9AA} = {C7D94AC1-E038-437C-B01B-788EBD1CD9AA}
@@ -24,16 +22,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompanyStructureApp.Tests",
 		{4857F1FE-A6CE-4F22-B90D-B7665ABF76C5} = {4857F1FE-A6CE-4F22-B90D-B7665ABF76C5}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompanyStructureApp.WEB", "CompanyStructureApp.WEB\CompanyStructureApp.WEB.csproj", "{2D6B7D14-0010-4CB2-96E3-D2596DC099F5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{813357FF-936B-4932-AC92-453C5776C11E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{813357FF-936B-4932-AC92-453C5776C11E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{813357FF-936B-4932-AC92-453C5776C11E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{813357FF-936B-4932-AC92-453C5776C11E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{50A7643C-3737-480A-B3F9-7DC900695D84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{50A7643C-3737-480A-B3F9-7DC900695D84}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{50A7643C-3737-480A-B3F9-7DC900695D84}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -58,6 +54,10 @@ Global
 		{6FBFE3FF-2D4E-42C0-ADDB-38793B01BE66}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6FBFE3FF-2D4E-42C0-ADDB-38793B01BE66}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6FBFE3FF-2D4E-42C0-ADDB-38793B01BE66}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D6B7D14-0010-4CB2-96E3-D2596DC099F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D6B7D14-0010-4CB2-96E3-D2596DC099F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D6B7D14-0010-4CB2-96E3-D2596DC099F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D6B7D14-0010-4CB2-96E3-D2596DC099F5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

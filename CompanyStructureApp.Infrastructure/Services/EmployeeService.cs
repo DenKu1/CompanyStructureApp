@@ -19,6 +19,13 @@ namespace CompanyStructureApp.Infrastructure.Services
             _mp = mapper;
         }
 
+        public List<EmployeeDTO> FindAllEmployees()
+        {
+            var employees = _repo.GetAllEmployees();
+
+            return _mp.Map<List<EmployeeDTO>>(employees);
+        }
+
         public List<EmployeeDTO> FindEmployeesOnPosition(Position position)
         {
             var employees = _repo.GetEmployees(ec => ec.Employee.Position == position);

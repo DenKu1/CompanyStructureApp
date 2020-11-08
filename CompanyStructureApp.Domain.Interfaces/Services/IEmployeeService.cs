@@ -10,5 +10,6 @@ namespace CompanyStructureApp.Domain.Interfaces.Services
         List<EmployeeDTO> FindEmployeesWithSalaryBigger(int salary);
         List<EmployeeDTO> FindEmployeesWithSuperior(string superiorId);
         List<EmployeeDTO> FindEmployeesOnPosition(Position position);
+        List<EmployeeDTO> FindAllEmployees();
     }
 }
