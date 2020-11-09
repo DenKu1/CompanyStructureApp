@@ -1,15 +1,14 @@
 ﻿@model IEnumerable<CompanyStructureApp.WEB.Models.EmployeeVM>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Manage company structure";
 }
 
-<h1>Index</h1>
-
-<p><a asp-action="AddEmployee">Create New</a></p>
-<p><a asp-action="Index" asp-route-order="directsubordination">Show by direct subordination</a></p>
-<p><a asp-action="Index" asp-route-order="positionheight">Show by position height</a></p>
-
+<div class="my-3">
+    <a asp-action="AddEmployee" class="btn btn-success">Create New</a>
+    <a asp-action="Index" asp-route-order="directsubordination" class="btn btn-info">Show by direct subordination</a>
+    <a asp-action="Index" asp-route-order="positionheight" class="btn btn-info">Show by position height</a>
+</div>
 <table class="table">
     <thead>
         <tr>

@@ -1,87 +1,143 @@
 ﻿@model IEnumerable<CompanyStructureApp.WEB.Models.EmployeeVM>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Find employees";
 }
 
-<h1>Index</h1>
+<h4>Select search option:</h4>
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-header">
+            <a class="card-link" data-toggle="collapse" href="#collapse4">
+                Find employees on position
+            </a>
+            <div id="collapse4" class="collapse" data-parent="#accordion">
+                <div class="card-body">
+                    <form method="get">
+                        <input type="hidden" name="selector" value="onposition">
+                        <div class="input-group w-50">
+                            <input type="text" name="arg" class="form-control form-control-sm" placeholder="Position">
+                            <div class="input-group-append">
+                                <input type="submit" value="Ok" class="btn btn-info btn-sm" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <a class="card-link" data-toggle="collapse" href="#collapse3">
+                Find employees with superior
+            </a>
+            <div id="collapse3" class="collapse" data-parent="#accordion">
+                <div class="card-body">
+                    <form method="get">
+                        <input type="hidden" name="selector" value="withsuperior">
+                        <div class="input-group w-50">
+                            <input type="text" name="arg" class="form-control form-control-sm" placeholder="Superior employee id">
+                            <div class="input-group-append">
+                                <input type="submit" value="Ok" class="btn btn-info btn-sm" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <a class="card-link" data-toggle="collapse" href="#collapse2">
+                Find employees with salary bigger
+            </a>
+            <div id="collapse2" class="collapse" data-parent="#accordion">
+                <div class="card-body">
+                    <form method="get">
+                        <input type="hidden" name="selector" value="salarybigger">
+                        <div class="input-group w-50">
+                            <input type="text" name="arg" class="form-control form-control-sm" placeholder="Salary">
+                            <div class="input-group-append">
+                                <input type="submit" value="Ok" class="btn btn-info btn-sm" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="accordion">
+        <div class="card">
+            <div class="card-header">
+                <a class="card-link" data-toggle="collapse" href="#collapse1">
+                    Find employees with biggest salary
+                </a>
+                <div id="collapse1" class="collapse" data-parent="#accordion">
+                    <div class="card-body">
+                        <form method="get">
+                            <input type="hidden" name="selector" value="biggestsalary">
+                            <input type="submit" value="Ok" class="btn btn-info btn-sm" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<h2>Select find option</h2>
-<form method="get">
-    <input type="hidden" name="selector" value="biggestsalary">
-    <input type="submit" value="Find employees with biggest salary" />
-</form>
-<form method="get">
-    <input type="hidden" name="selector" value="salarybigger">
-    <input type="submit" value="Find employees with salary bigger" />
-    <input type="text" name="arg">
-</form>
-<form method="get">
-    <input type="hidden" name="selector" value="withsuperior">
-    <input type="submit" value="Find employees with superior" />
-    <input type="text" name="arg">
-</form>
-<form method="get">
-    <input type="hidden" name="selector" value="onposition">
-    <input type="submit" value="Find employees on position" />
-    <input type="text" name="arg">
-</form>
-@if (Model is null)
-{
-    <h2>There is no added employees yet</h2>
-}
-else
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Id)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SuperiorId)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Surname)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Salary)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Position)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SuperiorId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Surname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Salary)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Position)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody> 
+        @if (Model != null)
+        {
             @foreach (var item in Model)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Id)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SuperiorId)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Surname)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Salary)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Position)
-                    </td>
-                </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SuperiorId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Surname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Salary)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Position)
+                </td>
+            </tr>
             }
+        }       
+    </tbody>    
+</table>
 
-        </tbody>
-    </table>
-}
