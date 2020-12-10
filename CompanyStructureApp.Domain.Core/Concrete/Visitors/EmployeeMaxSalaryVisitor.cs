@@ -29,16 +29,12 @@ namespace CompanyStructureApp.Domain.Core.Concrete.Visitors
 
         private void VisitEmployeeComponent(EmployeeComponent employeeComponent)
         {
-            if (employeeComponent is null)
-            {
-                throw new ArgumentNullException(nameof(employeeComponent));
-            }
+            //винесена валидация в метод
+            ifNullThenThrowArgumentNullException(employeeComponent);
 
             if (EmployeesWithMaxSalary.Count == 0)
             {
-                maxSalary = employeeComponent.Employee.Salary;
-                EmployeesWithMaxSalary.Add(employeeComponent.Employee);
-
+                choseFirstUserWhenNoUserInList(employeeComponent);
                 return;
             }
 
@@ -48,10 +44,29 @@ namespace CompanyStructureApp.Domain.Core.Concrete.Visitors
             }
             else if (maxSalary < employeeComponent.Employee.Salary)
             {
-                maxSalary = employeeComponent.Employee.Salary;
+                ClearListWhenFindUserWithBiggerSalaryThenCurrent(employeeComponent);
+            }
+        }
 
-                EmployeesWithMaxSalary.Clear();
-                EmployeesWithMaxSalary.Add(employeeComponent.Employee);
+        private void ClearListWhenFindUserWithBiggerSalaryThenCurrent(EmployeeComponent employeeComponent)
+        {
+            maxSalary = employeeComponent.Employee.Salary;
+
+            EmployeesWithMaxSalary.Clear();
+            EmployeesWithMaxSalary.Add(employeeComponent.Employee);
+        }
+
+        private void choseFirstUserWhenNoUserInList(EmployeeComponent employeeComponent)
+        {
+            maxSalary = employeeComponent.Employee.Salary;
+            EmployeesWithMaxSalary.Add(employeeComponent.Employee);
+        }
+
+        private static void ifNullThenThrowArgumentNullException(EmployeeComponent employeeComponent)
+        {
+            if (employeeComponent is null)
+            {
+                throw new ArgumentNullException(nameof(employeeComponent));
             }
         }
     }

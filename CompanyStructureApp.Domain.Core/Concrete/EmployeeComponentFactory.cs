@@ -16,10 +16,9 @@ namespace CompanyStructureApp.Domain.Core.Concrete
             {
                 return new EmployeeComposite(employee);
             }
-            else
-            {
-                return new EmployeeLeaf(employee);
-            }
+            //видалено непотрібний елс
+
+            return new EmployeeLeaf(employee);
         }
 
     }

@@ -51,7 +51,8 @@ namespace CompanyStructureApp.Domain.Core.Concrete
 
             if (employeeComponent.Employee.Position >= Employee.Position)
             {
-                throw new EmployeeException($"Subordinate {employeeComponent.DisplayInfo()} has bigger postion than {this.DisplayInfo()}");
+                //видалено зайвий зис
+                throw new EmployeeException($"Subordinate {employeeComponent.DisplayInfo()} has bigger postion than {DisplayInfo()}");
             }
 
             EmployeeComponents.Add(employeeComponent);

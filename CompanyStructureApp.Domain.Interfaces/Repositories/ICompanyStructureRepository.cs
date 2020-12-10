@@ -7,9 +7,12 @@ namespace CompanyStructureApp.Domain.Interfaces.Repositories
 {
     public interface ICompanyStructureRepository
     {
-        public string AddEmployee(IEmployee employee, string superiorEmployeeId);
-        public List<IEmployee> GetEmployees(Func<EmployeeComponent, bool> function);
-        public IEmployee GetEmployeeById(string id);
+        //видалений непотрібний паблік
+        string AddEmployee(IEmployee employee, string superiorEmployeeId);
+        //видалений непотрібний паблік
+        List<IEmployee> GetEmployees(Func<EmployeeComponent, bool> function);
+        //видалений непотрібний паблік
+        IEmployee GetEmployeeById(string id);
         List<IEmployee> FindEmployeesWithSuperior(string superiorId);
         List<IEmployee> FindEmployeesWithBiggestSalary();
         List<IEmployee> GetAllEmployees();

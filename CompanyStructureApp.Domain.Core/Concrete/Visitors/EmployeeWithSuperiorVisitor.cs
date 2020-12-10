@@ -19,16 +19,21 @@ namespace CompanyStructureApp.Domain.Core.Concrete.Visitors
                 
         public void VisitEmployeeComposite(EmployeeComposite employeeComposite)
         {
-            if (employeeComposite is null)
-            {
-                throw new ArgumentNullException(nameof(employeeComposite));
-            }
+            IfNullThenThrowArgumentNullException(employeeComposite);
 
             if (employeeComposite.Employee.Id.ToString() == _superiorId)
             {
                 EmployeesWithSuperior = employeeComposite
                     .EmployeeComponents.Select(c => c.Employee)
                     .ToList();
+            }
+        }
+
+        private static void IfNullThenThrowArgumentNullException(EmployeeComposite employeeComposite)
+        {
+            if (employeeComposite is null)
+            {
+                throw new ArgumentNullException(nameof(employeeComposite));
             }
         }
 
