@@ -18,10 +18,6 @@ namespace CompanyStructureApp.Domain.Core.Concrete
 
         public override void Accept(IEmployeeVisitor visitor)
         {
-            if (visitor is null)
-            {
-                throw new ArgumentNullException(nameof(visitor));
-            }
 
             EmployeeComponents.ForEach(employeeComponent => employeeComponent.Accept(visitor));
 
@@ -44,10 +40,6 @@ namespace CompanyStructureApp.Domain.Core.Concrete
 
         public void Add(EmployeeComponent employeeComponent)
         {
-            if (employeeComponent == null)
-            {
-                throw null;
-            }
 
             if (employeeComponent.Employee.Position >= Employee.Position)
             {
@@ -60,10 +52,6 @@ namespace CompanyStructureApp.Domain.Core.Concrete
 
         public void Remove(EmployeeComponent employeeComponent)
         {
-            if (employeeComponent == null)
-            {
-                throw null;
-            }
 
             if (!EmployeeComponents.Remove(employeeComponent))
             {

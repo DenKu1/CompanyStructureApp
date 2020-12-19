@@ -29,9 +29,7 @@ namespace CompanyStructureApp.Domain.Core.Concrete.Visitors
 
         private void VisitEmployeeComponent(EmployeeComponent employeeComponent)
         {
-            //винесена валидация в метод
-            ifNullThenThrowArgumentNullException(employeeComponent);
-
+            
             if (EmployeesWithMaxSalary.Count == 0)
             {
                 choseFirstUserWhenNoUserInList(employeeComponent);
@@ -62,12 +60,6 @@ namespace CompanyStructureApp.Domain.Core.Concrete.Visitors
             EmployeesWithMaxSalary.Add(employeeComponent.Employee);
         }
 
-        private static void ifNullThenThrowArgumentNullException(EmployeeComponent employeeComponent)
-        {
-            if (employeeComponent is null)
-            {
-                throw new ArgumentNullException(nameof(employeeComponent));
-            }
-        }
+        
     }
 }

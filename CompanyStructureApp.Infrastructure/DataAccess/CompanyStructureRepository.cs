@@ -23,11 +23,6 @@ namespace CompanyStructureApp.Infrastructure.DataAccess
 
         public string AddEmployee(IEmployee employee, string superiorEmployeeId)
         {
-            if (employee is null)
-            {
-                throw new ArgumentNullException(nameof(employee));
-            }
-
             if (superiorEmployeeId is null)
             {
                 // If superiorEmployeeId is empty means that we have to change root element to the new one
@@ -57,11 +52,6 @@ namespace CompanyStructureApp.Infrastructure.DataAccess
 
         public IEmployee GetEmployeeById(string id)
         {
-            if (id is null)
-            {
-                throw new ArgumentNullException(nameof(id));
-            }
-
             if (_container.RootElement is null)
             {
                 return null;
@@ -72,11 +62,6 @@ namespace CompanyStructureApp.Infrastructure.DataAccess
 
         public List<IEmployee> GetEmployees(Func<EmployeeComponent, bool> function)
         {
-            if (function is null)
-            {
-                throw new ArgumentNullException(nameof(function));
-            }
-
             if (_container.RootElement == null)
             {
                 return null;
@@ -112,11 +97,6 @@ namespace CompanyStructureApp.Infrastructure.DataAccess
 
         public List<IEmployee> FindEmployeesWithSuperior(string superiorId)
         {
-            if (superiorId is null)
-            {
-                throw new ArgumentNullException(nameof(superiorId));
-            }
-
             if (_container.RootElement is null)
             {
                 return null;
@@ -131,10 +111,6 @@ namespace CompanyStructureApp.Infrastructure.DataAccess
 
         private EmployeeComponent GetEmployeeComponentById(string id)
         {
-            if (id is null)
-            {
-                throw new ArgumentNullException(nameof(id));
-            }
 
             if (_container.RootElement is null)
             {

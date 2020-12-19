@@ -7,10 +7,6 @@ namespace CompanyStructureApp.Domain.Core.Concrete
     {
         public EmployeeComponent CreateEmployeeComponent(IEmployee employee)
         {
-            if (employee is null)
-            {
-                throw new System.ArgumentNullException(nameof(employee));
-            }
 
             if (employee.Position != 0)
             {

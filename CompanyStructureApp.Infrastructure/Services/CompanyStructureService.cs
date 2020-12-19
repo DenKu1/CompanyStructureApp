@@ -22,10 +22,6 @@ namespace CompanyStructureApp.Infrastructure.Services
 
         public string AddEmployee(EmployeeDTO employeeDTO, string superiorEmployeeId)
         {
-            if (employeeDTO is null)
-            {
-                throw new ArgumentNullException(nameof(employeeDTO));
-            }
 
             Employee employee = _mp.Map<Employee>(employeeDTO);
 
