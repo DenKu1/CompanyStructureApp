@@ -7,19 +7,14 @@ namespace CompanyStructureApp.Domain.Core.Concrete
     {
         public EmployeeComponent CreateEmployeeComponent(IEmployee employee)
         {
-            if (employee is null)
-            {
-                throw new System.ArgumentNullException(nameof(employee));
-            }
 
             if (employee.Position != 0)
             {
                 return new EmployeeComposite(employee);
             }
-            else
-            {
-                return new EmployeeLeaf(employee);
-            }
+            //видалено непотрібний елс
+
+            return new EmployeeLeaf(employee);
         }
 
     }

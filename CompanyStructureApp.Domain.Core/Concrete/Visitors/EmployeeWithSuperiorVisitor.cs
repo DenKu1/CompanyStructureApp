@@ -19,10 +19,6 @@ namespace CompanyStructureApp.Domain.Core.Concrete.Visitors
                 
         public void VisitEmployeeComposite(EmployeeComposite employeeComposite)
         {
-            if (employeeComposite is null)
-            {
-                throw new ArgumentNullException(nameof(employeeComposite));
-            }
 
             if (employeeComposite.Employee.Id.ToString() == _superiorId)
             {
@@ -31,6 +27,8 @@ namespace CompanyStructureApp.Domain.Core.Concrete.Visitors
                     .ToList();
             }
         }
+
+        
 
         public void VisitEmployeeLeaf(EmployeeLeaf employeeLeaf)
         {

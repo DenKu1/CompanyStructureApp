@@ -42,10 +42,6 @@ namespace CompanyStructureApp.Infrastructure.Services
 
         public List<EmployeeDTO> FindEmployeesWithSuperior(string superiorId)
         {
-            if (superiorId is null)
-            {
-                throw new ArgumentNullException(nameof(superiorId));
-            }
 
             var employees = _repo.FindEmployeesWithSuperior(superiorId);
 

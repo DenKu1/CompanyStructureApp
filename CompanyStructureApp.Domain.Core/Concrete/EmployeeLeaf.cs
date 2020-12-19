@@ -14,11 +14,6 @@ namespace CompanyStructureApp.Domain.Core.Concrete
 
         public override void Accept(IEmployeeVisitor visitor)
         {
-            if (visitor is null)
-            {
-                throw new ArgumentNullException(nameof(visitor));
-            }
-
             visitor.VisitEmployeeLeaf(this);
         }
 

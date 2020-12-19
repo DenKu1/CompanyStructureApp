@@ -18,10 +18,6 @@ namespace CompanyStructureApp.Domain.Core.Concrete
 
         public override void Accept(IEmployeeVisitor visitor)
         {
-            if (visitor is null)
-            {
-                throw new ArgumentNullException(nameof(visitor));
-            }
 
             EmployeeComponents.ForEach(employeeComponent => employeeComponent.Accept(visitor));
 
@@ -44,14 +40,11 @@ namespace CompanyStructureApp.Domain.Core.Concrete
 
         public void Add(EmployeeComponent employeeComponent)
         {
-            if (employeeComponent == null)
-            {
-                throw null;
-            }
 
             if (employeeComponent.Employee.Position >= Employee.Position)
             {
-                throw new EmployeeException($"Subordinate {employeeComponent.DisplayInfo()} has bigger postion than {this.DisplayInfo()}");
+                //видалено зайвий зис
+                throw new EmployeeException($"Subordinate {employeeComponent.DisplayInfo()} has bigger postion than {DisplayInfo()}");
             }
 
             EmployeeComponents.Add(employeeComponent);
@@ -59,10 +52,6 @@ namespace CompanyStructureApp.Domain.Core.Concrete
 
         public void Remove(EmployeeComponent employeeComponent)
         {
-            if (employeeComponent == null)
-            {
-                throw null;
-            }
 
             if (!EmployeeComponents.Remove(employeeComponent))
             {

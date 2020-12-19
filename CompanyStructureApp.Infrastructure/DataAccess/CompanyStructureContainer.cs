@@ -17,7 +17,8 @@ namespace CompanyStructureApp.Infrastructure.DataAccess
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return this.GetEnumerator();
+            //видалено зайвий зис
+            return GetEnumerator();
         }
     }
 }

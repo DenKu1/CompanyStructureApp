@@ -24,7 +24,8 @@ namespace CompanyStructureApp.Domain.Core.Abstract
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return this.GetEnumerator();
+            //видалено зайвий зис
+            return GetEnumerator();
         }
     }
 }
